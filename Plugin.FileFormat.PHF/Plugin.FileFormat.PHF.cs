@@ -55,13 +55,13 @@ namespace Plugin.FileFormat.PHF
                 {
                     header[0x10] = 0x30;
                     header[0x11] = 0x60;
-                    outputSize = 1572864;
+                    outputSize = 1507328;
                 }
                 else if (BinaryHelper.FindBytes(bytes, greenOak, 0x100) != -1)
                 {
                     header[0x10] = 0x30;
                     header[0x11] = 0x60;
-                    outputSize = 1572864;
+                    outputSize = 1507328;
                 }
                 else return false;
 
@@ -74,29 +74,29 @@ namespace Plugin.FileFormat.PHF
                     return false;
                 }
 
-                int index = 0;
-                for(int i = offset; i < bytes.Length;)
+                int binIndex = 0;
+                for(int phfIndex = offset; phfIndex < bytes.Length;)
                 {
 
                     //8 Byte header before we start again
-                    if (index % 0x10000 == 0 && index != 0) i += 8;
-                    if (index >= rawBinary.Length) break;
+                    if (binIndex % 0x10000 == 0 && binIndex != 0) phfIndex += 8;
+                    if (binIndex >= rawBinary.Length) break;
 
                     //32768-65536 is missing??
-                    if (index >= 32768 && index < 65536)
+                    if (binIndex >= 32768 && binIndex < 65536)
                     {
-                        rawBinary[index] = 0xFF;
-                        index++;
+                        rawBinary[binIndex] = 0xFF;
+                        binIndex++;
                     } else
                     {
                         //Every 32 byte block we have a 6 byte header to remove
-                        if (index % 32 == 0 && index != 0) i += 6;
-                        if (index >= rawBinary.Length) break;
+                        if (binIndex % 32 == 0 && binIndex != 0) phfIndex += 6;
+                        if (binIndex >= rawBinary.Length) break;
 
                         //TODO put detection for file length/type and do this for all types correctly not just spanish oak
-                        rawBinary[index] = bytes[i];
-                        i++;
-                        index++;
+                        rawBinary[binIndex] = bytes[phfIndex];
+                        phfIndex++;
+                        binIndex++;
                     }
                 }
 
@@ -106,8 +106,6 @@ namespace Plugin.FileFormat.PHF
             }
 
             _fileOpen = true;
-
-            //File.WriteAllBytes(@"C:\Dropbox\Car\Tunes\HACCEG3.phf.bin", rawBinary);
 
             return true;
 
