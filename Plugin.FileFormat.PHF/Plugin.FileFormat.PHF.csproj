@@ -58,16 +58,6 @@
     <Compile Include="Plugin.FileFormat.PHF.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{207b0a2f-70dc-4682-ad92-83b42b45aa9d}</Project>
-      <Name>Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Plugin.FileFormat\PluginManager.csproj">
-      <Project>{5ad0b6d0-e911-4d67-b260-1e422ec9db3d}</Project>
-      <Name>PluginManager</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
